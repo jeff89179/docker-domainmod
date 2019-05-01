@@ -3,6 +3,8 @@ Domainmod under Docker
 
 Forked from koshatul/docker-domainmod
 
+### WARNING - THIS IS STILL A WORK IN PROGRESS! I HAD IT RUNNING PREVIOUSLY, THEN STARTED OVER TO MAKE THIS README, AND NOW IT WONT COME UP. STILL WORKING ON IT ###
+
 Had to add some lines to the Dockerfile and Modify docker-compose to fit my needs.
 
 Installation (going off of memory - not going to rebuild this again)
@@ -40,7 +42,8 @@ pwd
 should be back at /container-data/domainmod/docker-domainmod
 
 ### Create local image
-cd docker-domainmod 
 docker build -f Dockerfile . -t domainmod-jeff89179:latest
 
+### Bring up the docker containers with docker-compose 
+docker-compose up
 
