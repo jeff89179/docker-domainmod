@@ -3,7 +3,7 @@ Domainmod under Docker
 
 Forked from koshatul/docker-domainmod
 
-### WARNING - THIS IS STILL A WORK IN PROGRESS! I HAD IT RUNNING PREVIOUSLY, THEN STARTED OVER TO MAKE THIS README, AND NOW IT WONT COME UP. STILL WORKING ON IT ###
+### DOMAINMOD DOCKER CONTAINER ###
 
 Had to add some lines to the Dockerfile and Modify docker-compose to fit my needs.
 
@@ -44,6 +44,26 @@ should be back at /container-data/domainmod/docker-domainmod
 ### Create local image
 docker build -f Dockerfile . -t domainmod-jeff89179:latest
 
-### Bring up the docker containers with docker-compose 
-docker-compose up
+### Bring up the docker containers with docker-compose, but don't start them, otherwise you'll be stuck in the log of it and have to stop them anyway with CTRL+C
+docker-compose up --no-start
 
+### Start the containers
+docker start domainmod-mysql
+docker start domainmod
+
+### Find the IP of domainmod-mysql
+docker inspect domainmod-mysql | grep '"IPAddress"'        ### in my case, it's 172.22.0.2
+
+### SSH into domainmod and change config.inc.php so it reflects this IP as the dbhost
+docker exec -it domainmod /bin/bash
+cd _includes && nano config.inc.php
+- update $dbhostname with the IP you got earlier
+- ^X, y
+- exit
+- should be back at the docker host shell. No need to restart the container. 
+
+### Thats it! Navigate to dockerhost.domain:8088 and follow the instructions to finish installation.
+
+NOTE: I'm sure there is a way to set the network and IP in docker-compose.yml, but I leave that to you to figure out. 
+Currently, there is no NetworkSolutions API support or CSV import support from the domainmod developer (as of April 2019), and I'm not going to import my domains one by one. So until domainmod gets updated with NetworkSolutions support or CSV import support, I have no plans to actually utilize this tool.
+It has great potential - but for me, it's not quite there yet.
