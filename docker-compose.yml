@@ -38,7 +38,7 @@ services:
       - mysql-data:/var/lib/mysql
   domainmod:
     container_name: domainmod
-    image: registry.ctrlzr.com/koshatul/domainmod:dev
+    image: domainmod:latest
     build: .
     networks:
       - default
