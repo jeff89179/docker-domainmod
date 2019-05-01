@@ -35,7 +35,7 @@ services:
       MYSQL_PASSWORD: "domainmod"
       MYSQL_RANDOM_ROOT_PASSWORD: "yes"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - /container-data/domainmod/mysql-data:/var/lib/mysql
   domainmod:
     container_name: domainmod
     image: domainmod:latest
